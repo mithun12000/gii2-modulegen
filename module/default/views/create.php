@@ -10,7 +10,9 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
-
+use yii\adminUi\widget\Box;
+use yii\adminUi\widget\Row;
+use yii\adminUi\widget\Column;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */

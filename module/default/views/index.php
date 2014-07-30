@@ -13,6 +13,9 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
+use yii\adminUi\widget\Box;
+use yii\adminUi\widget\Row;
+use yii\adminUi\widget\Column;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 
 /* @var $this yii\web\View */
