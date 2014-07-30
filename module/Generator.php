@@ -31,12 +31,13 @@ class Generator extends \yii\gii\Generator
 {
     public $moduleClass;
     public $moduleID;
+    public $modelClass;
     public $controllerClass;
     public $baseControllerClass = 'yii\web\Controller';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
-	public $tsearchModelClass;
-	public $tcontrollerClass;
+    public $tsearchModelClass;
+    public $tcontrollerClass;
 
 
     /**
@@ -92,13 +93,13 @@ class Generator extends \yii\gii\Generator
             'moduleID' => 'Module ID',
             'moduleClass' => 'Module Class',
 			
-			'modelClass' => 'Model Class',            
+            'modelClass' => 'Model Class',            
             'controllerClass' => 'Controller Class',
-			'tcontrollerClass' => 'Trash Controller Class',
+            'tcontrollerClass' => 'Trash Controller Class',
             'baseControllerClass' => 'Base Controller Class',
             'indexWidgetType' => 'Widget Used in Index Page',
             'searchModelClass' => 'Search Model Class',
-			'tsearchModelClass' => 'Trash Search Model Class',
+            'tsearchModelClass' => 'Trash Search Model Class',
         ];
     }
 
