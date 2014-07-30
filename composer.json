@@ -2,25 +2,25 @@
     "name": "mithun12000/gii2-modulegen",
     "description": "Module generation extension for Gii2",
 	"keywords": [
-    "yii2",
-	"gii",
-    "module",
-	"generator"
-  ],
-	"type": "yii2-extension",
+            "yii2",
+            "gii",
+            "module",
+            "generator"
+        ],
+    "type": "yii2-extension",
     "authors": [
         {
             "name": "Mithun Mandal",
             "email": "mithun12000@gmail.com"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "mithun\\modulegen\\": ""
-        }
-    },
     "require": {
         "mithun12000/yii2-urlasset": "*",
         "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "yii\\modulegen\\": ""
+        }
     }
 }

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace mithun\modulegen\module;
+namespace yii\modulegen\module;
 
 use Yii;
 use yii\helpers\StringHelper;
