@@ -11,7 +11,11 @@ $urlParams = $generator->generateUrlParams();
 echo "<?php\n";
 ?>
 
+
 use yii\helpers\Html;
+use yii\adminUi\widget\Box;
+use yii\adminUi\widget\Row;
+use yii\adminUi\widget\Column;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -20,13 +24,18 @@ $this->title = <?= $generator->generateString('Update {modelClass}: ', ['modelCl
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
+
+Row::begin();
+    Column::begin();
+        Box::begin([
+            'type' => Box::TYPE_INFO,
+            'header' => $model->title,
+            'headerIcon' => 'fa fa-user',
+        ]);
+        echo  $this->render('_form', [
+            'model' => $model,
+        ]);
+        Box::end();
+    Column::end();
+Row::end();
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
-
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
-
-    <?= "<?= " ?>$this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>

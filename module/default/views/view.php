@@ -13,6 +13,12 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
+use yii\grid\GridView;
+use yii\adminUi\widget\Box;
+use yii\adminUi\widget\Row;
+use yii\adminUi\widget\Column;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -20,23 +26,26 @@ use yii\widgets\DetailView;
 $this->title = $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= "<?= " ?>DetailView::widget([
+Row::begin();
+    Column::begin();
+        Box::begin([
+            'type' => Box::TYPE_INFO,
+            'header' => $this->title,
+            'headerIcon' => 'fa fa-user',
+            'headerButtonGroup' => true,
+            'headerButton' => Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary'])
+                            .Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
+								'class' => 'btn btn-danger',
+								'data' => [
+									'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
+									'method' => 'post',
+								],
+							])
+        ]);
+		
+		echo DetailView::widget([
         'model' => $model,
         'attributes' => [
 <?php
@@ -52,6 +61,8 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
         ],
-    ]) ?>
-
-</div>
+    ]);
+        Box::end();
+    Column::end();
+Row::end();
+?>

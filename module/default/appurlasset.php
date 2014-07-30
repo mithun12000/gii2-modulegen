@@ -1,17 +1,33 @@
 <?php
 /**
+ * This is the template for generating a module class file.
+ */
+
+/* @var $this yii\web\View */
+/* @var $generator yii\gii\generators\module\Generator */
+
+$className = $generator->moduleClass;
+$moduleName = $generator->moduleID;
+$controllerClass = $generator->getControllerID();
+$pos = strrpos($className, '\\');
+$ns = ltrim(substr($className, 0, $pos), '\\');
+$className = substr($className, $pos + 1);
+
+echo "<?php\n";
+?>
+/**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 
-namespace backend\modules\category;
+namespace <?= $ns ?>;
 
 use Yii\UrlAsset\component\UrlAsset;
 
 /**
- * @author Qiang Xue <qiang.xue@gmail.com>
+ * @author Mithun Mandal <mithun12000@gmail.com>
  * @since 2.0
  */
 class AppUrlAsset extends UrlAsset
@@ -19,16 +35,16 @@ class AppUrlAsset extends UrlAsset
    
      public $url = [
         [
-            'category'=>[
-                'label' => 'Master Management', 
+            '<?=$moduleName?>'=>[
+                'label' => '<?=ucfirst($moduleName)?> Management', 
                 'url' => ['/#'],
                 'linkOptions'=>[
                     'class' => 'fa fa-group',
                 ],
                 'items' => [
                     [
-                        'label' => 'Category', 
-                        'url' => ['/category'],
+                        'label' => '<?=ucfirst($moduleName)?>', 
+                        'url' => ['/<?= $controllerClass ?>'],
                         'linkOptions'=>[
                             'class' => 'fa fa-group',
                         ]
@@ -39,8 +55,8 @@ class AppUrlAsset extends UrlAsset
                 'items' => [
                    
                     [
-                        'label' => 'Category Trash', 
-                        'url' => ['/category/category-trash/index'],
+                        'label' => '<?=ucfirst($moduleName)?> Trash', 
+                        'url' => ['/<?=$moduleName?>/<?=$generator->getControllerID(true)?>/index'],
                         'linkOptions'=>[
                             'class' => 'fa fa-trash-o',
                         ]
@@ -50,5 +66,5 @@ class AppUrlAsset extends UrlAsset
         ]
     ];
     
-    public $module = ['category'=>'category','category/category-trash'=>'ztrash'];
+    public $module = ['<?=$moduleName?>'=>'<?=$moduleName?>','<?=$moduleName?>/<?=$generator->getControllerID(true)?>'=>'ztrash'];
 }

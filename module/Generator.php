@@ -165,7 +165,7 @@ EOD;
      */
     public function requiredTemplates()
     {
-        return ['module.php', 'controller.php', 'view.php','appurlasset.php'];
+        return ['module.php', 'controller.php', 'appurlasset.php'];
     }
 
     /**
@@ -244,28 +244,19 @@ EOD;
             $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
             $this->render("module.php")
         );
-        /*
-        $files[] = new CodeFile(
-            $modulePath . '/controllers/DefaultController.php',
-            $this->render("controller.php")
-        );
-        $files[] = new CodeFile(
-            $modulePath . '/views/default/index.php',
-            $this->render("view.php")
-        );
-        //*/
         
+        $files[] = new CodeFile(
+            $modulePath . '/AppUrlAsset.php',
+            $this->render("appurlasset.php")
+        );
+                
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
-        $files = [
-            new CodeFile($controllerFile, $this->render('controller.php')),
-        ];
+        $files[] = new CodeFile($controllerFile, $this->render('controller.php'));
         
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->tcontrollerClass, '\\')) . '.php');
 
-        $files = [
-            new CodeFile($controllerFile, $this->render('tcontroller.php')),
-        ];
+        $files[] = new CodeFile($controllerFile, $this->render('tcontroller.php'));
 
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
@@ -278,6 +269,7 @@ EOD;
         }
 
         $viewPath = $this->getViewPath();
+        $tviewPath = $this->getViewPath(true);
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
             if (empty($this->searchModelClass) && $file === '_search.php') {
@@ -285,6 +277,13 @@ EOD;
             }
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
                 $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file"));
+            }
+            
+            if (empty($this->tsearchModelClass) && $file === '_search.php') {
+                continue;
+            }
+            if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                $files[] = new CodeFile("$tviewPath/$file", $this->render("views/$file"));
             }
         }
 
@@ -294,10 +293,12 @@ EOD;
     /**
      * @return string the controller ID (without the module ID prefix)
      */
-    public function getControllerID()
+    public function getControllerID($trash = false)
     {
-        $pos = strrpos($this->controllerClass, '\\');
-        $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
+        if($trash) $controllerClass = $this->tcontrollerClass;
+        else $controllerClass = $this->controllerClass;
+        $pos = strrpos($controllerClass, '\\');
+        $class = substr(substr($controllerClass, $pos + 1), 0, -10);
 
         return Inflector::camel2id($class);
     }
@@ -305,11 +306,11 @@ EOD;
     /**
      * @return string the action view file path
      */
-    public function getViewPath()
+    public function getViewPath($trash = false)
     {
         $module = empty($this->moduleID) ? Yii::$app : Yii::$app->getModule($this->moduleID);
 
-        return $module->getViewPath() . '/' . $this->getControllerID();
+        return $module->getViewPath() . '/' . $this->getControllerID($trash);
     }
 
     public function getNameAttribute()
