@@ -7,6 +7,7 @@
 /* @var $generator yii\gii\generators\module\Generator */
 
 $className = $generator->moduleClass;
+$controllerClass = $generator->getControllerID();
 $pos = strrpos($className, '\\');
 $ns = ltrim(substr($className, 0, $pos), '\\');
 $className = substr($className, $pos + 1);
@@ -19,6 +20,8 @@ namespace <?= $ns ?>;
 class <?= $className ?> extends \yii\base\Module
 {
     public $controllerNamespace = '<?= $generator->getControllerNamespace() ?>';
+	
+	public $defaultRoute = '<?= $controllerClass ?>';
 
     public function init()
     {

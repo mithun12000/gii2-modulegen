@@ -10,9 +10,9 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\crud\Generator */
 
-$controllerClass = StringHelper::basename($generator->controllerClass);
+$controllerClass = StringHelper::basename($generator->tcontrollerClass);
 $modelClass = StringHelper::basename($generator->modelClass);
-$searchModelClass = StringHelper::basename($generator->searchModelClass);
+$searchModelClass = StringHelper::basename($generator->tsearchModelClass);
 if ($modelClass === $searchModelClass) {
     $searchModelAlias = $searchModelClass . 'Search';
 }
@@ -31,8 +31,8 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
 
 use Yii;
 use <?= ltrim($generator->modelClass, '\\') ?>;
-<?php if (!empty($generator->searchModelClass)): ?>
-use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
+<?php if (!empty($generator->tsearchModelClass)): ?>
+use <?= ltrim($generator->tsearchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
 <?php else: ?>
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
@@ -63,7 +63,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionIndex()
     {
-<?php if (!empty($generator->searchModelClass)): ?>
+<?php if (!empty($generator->tsearchModelClass)): ?>
         $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

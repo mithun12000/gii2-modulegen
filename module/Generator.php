@@ -164,7 +164,7 @@ EOD;
      */
     public function requiredTemplates()
     {
-        return ['module.php', 'controller.php', 'view.php'];
+        return ['module.php', 'controller.php', 'view.php','appurlasset.php'];
     }
 
     /**
@@ -243,6 +243,7 @@ EOD;
             $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
             $this->render("module.php")
         );
+        /*
         $files[] = new CodeFile(
             $modulePath . '/controllers/DefaultController.php',
             $this->render("controller.php")
@@ -251,16 +252,28 @@ EOD;
             $modulePath . '/views/default/index.php',
             $this->render("view.php")
         );
+        //*/
         
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
         $files = [
             new CodeFile($controllerFile, $this->render('controller.php')),
         ];
+        
+        $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->tcontrollerClass, '\\')) . '.php');
+
+        $files = [
+            new CodeFile($controllerFile, $this->render('tcontroller.php')),
+        ];
 
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
+        }
+        
+        if (!empty($this->tsearchModelClass)) {
+            $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->tsearchModelClass, '\\') . '.php'));
+            $files[] = new CodeFile($searchModel, $this->render('tsearch.php'));
         }
 
         $viewPath = $this->getViewPath();
@@ -295,7 +308,7 @@ EOD;
     {
         $module = empty($this->moduleID) ? Yii::$app : Yii::$app->getModule($this->moduleID);
 
-        return $module->getViewPath() . '/' . $this->getControllerID() ;
+        return $module->getViewPath() . '/' . $this->getControllerID();
     }
 
     public function getNameAttribute()
