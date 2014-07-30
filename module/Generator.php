@@ -168,29 +168,6 @@ EOD;
     }
 
     /**
-     * @inheritdoc
-     */
-    public function generate()
-    {
-        $files = [];
-        $modulePath = $this->getModulePath();
-        $files[] = new CodeFile(
-            $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
-            $this->render("module.php")
-        );
-        $files[] = new CodeFile(
-            $modulePath . '/controllers/DefaultController.php',
-            $this->render("controller.php")
-        );
-        $files[] = new CodeFile(
-            $modulePath . '/views/default/index.php',
-            $this->render("view.php")
-        );
-
-        return $files;
-    }
-
-    /**
      * Validates [[moduleClass]] to make sure it is a fully qualified class name.
      */
     public function validateModuleClass()
@@ -203,18 +180,6 @@ EOD;
         }
     }
 	
-	/**
-     * Checks if model class is valid
-     */
-    public function validateModelClass()
-    {
-        /* @var $class ActiveRecord */
-        $class = $this->modelClass;
-        $pk = $class::primaryKey();
-        if (empty($pk)) {
-            $this->addError('modelClass', "The table associated with $class must have primary key(s).");
-        }
-    }
 
     /**
      * @return boolean the directory that contains the module class
@@ -266,11 +231,27 @@ EOD;
         }
     }
 
+    
     /**
      * @inheritdoc
      */
     public function generate()
     {
+        $files = [];
+        $modulePath = $this->getModulePath();
+        $files[] = new CodeFile(
+            $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
+            $this->render("module.php")
+        );
+        $files[] = new CodeFile(
+            $modulePath . '/controllers/DefaultController.php',
+            $this->render("controller.php")
+        );
+        $files[] = new CodeFile(
+            $modulePath . '/views/default/index.php',
+            $this->render("view.php")
+        );
+        
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
         $files = [
