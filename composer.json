@@ -1,6 +1,13 @@
 {
     "name": "mithun12000/gii2-modulegen",
     "description": "Module generation extension for Gii2",
+	"keywords": [
+    "yii2",
+	"gii",
+    "module",
+	"generator"
+  ],
+	"type": "yii2-extension",
     "authors": [
         {
             "name": "Mithun Mandal",
