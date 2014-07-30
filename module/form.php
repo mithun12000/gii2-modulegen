@@ -17,8 +17,7 @@
 	echo $form->field($generator, 'tcontrollerClass');
 	
 	
-	echo $form->field($generator, 'baseControllerClass');
-	echo $form->field($generator, 'moduleID');
+	echo $form->field($generator, 'baseControllerClass');	
 	echo $form->field($generator, 'indexWidgetType')->dropDownList([
 		'grid' => 'GridView',
 		'list' => 'ListView',
