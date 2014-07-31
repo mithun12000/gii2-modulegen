@@ -75,7 +75,7 @@ class Generator extends \yii\gii\Generator
             [['baseControllerClass'], 'validateClass', 'params' => ['extends' => Controller::className()]],
             [['controllerClass','tcontrollerClass'], 'match', 'pattern' => '/Controller$/', 'message' => 'Controller class name must be suffixed with "Controller".'],
             [['controllerClass','tcontrollerClass'], 'match', 'pattern' => '/(^|\\\\)[A-Z][^\\\\]+Controller$/', 'message' => 'Controller class name must start with an uppercase letter.'],
-            [['controllerClass', 'searchModelClass', 'tsearchModelClass', 'tcontrollerClass'], 'validateNewClass'],
+            //[['controllerClass', 'searchModelClass', 'tsearchModelClass', 'tcontrollerClass'], 'validateNewClass'],
             [['indexWidgetType'], 'in', 'range' => ['grid', 'list']],
             [['modelClass'], 'validateModelClass'],
             //[['moduleID'], 'validateModuleID'],
@@ -308,9 +308,10 @@ EOD;
      */
     public function getViewPath($trash = false)
     {
-        $module = empty($this->moduleID) ? Yii::$app : Yii::$app->getModule($this->moduleID);
+        $modulePath = $this->getModulePath();
+        //$module = empty($this->moduleID) ? Yii::$app : Yii::$app->getModule($this->moduleID);
 
-        return $module->getViewPath() . '/' . $this->getControllerID($trash);
+        return $modulePath . '/views/' . $this->getControllerID($trash);
     }
 
     public function getNameAttribute()
