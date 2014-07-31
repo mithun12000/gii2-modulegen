@@ -30,7 +30,7 @@ Row::begin();
         Box::begin([
             'type' => Box::TYPE_INFO,
             'header' => $model->title,
-            'headerIcon' => 'fa fa-user',
+            'headerIcon' => 'fa fa-gear',
         ]);
         echo  $this->render('_form', [
             'model' => $model,

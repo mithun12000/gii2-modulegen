@@ -33,7 +33,7 @@ Row::begin();
         Box::begin([
             'type' => Box::TYPE_INFO,
             'header' => $this->title,
-            'headerIcon' => 'fa fa-user',
+            'headerIcon' => 'fa fa-gear',
             'headerButtonGroup' => true,
             'headerButton' => Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary'])
                             .Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [

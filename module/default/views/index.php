@@ -31,10 +31,10 @@ Row::begin();
         Box::begin([
             'type' => Box::TYPE_INFO,
             'header' => $this->title,
-            'headerIcon' => 'fa fa-user',
+            'headerIcon' => 'fa fa-gear',
             'headerButtonGroup' => true,
             'headerButton' => Html::a(<?= $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success'])
-                            .Html::a('<i class="fa fa-trash-o fa-lg"></i>&nbsp; Trash', ['user-trash/index'], ['class' => 'btn btn-default'])
+                            .Html::a('<i class="fa fa-trash-o fa-lg"></i>&nbsp; Trash', ['<?= $generator->getControllerID(true)?>/index'], ['class' => 'btn btn-default'])
         ]);
 		<?php if(!empty($generator->searchModelClass)): ?>
 		<?= ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); 
