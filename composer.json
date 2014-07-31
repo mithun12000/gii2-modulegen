@@ -16,6 +16,7 @@
     ],
     "require": {
         "mithun12000/yii2-urlasset": "*",
+        "mithun12000/adminui":"*",
         "php": ">=5.4.0"
     },
     "autoload": {
