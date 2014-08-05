@@ -8,6 +8,7 @@
             "generator"
         ],
     "type": "yii2-extension",
+    "minimum-stability":"dev",
     "authors": [
         {
             "name": "Mithun Mandal",
