@@ -278,12 +278,15 @@ EOD;
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
                 $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file"));
             }
-            
+        }
+		
+		$templatePath = $this->getTemplatePath() . '/tviews';
+		foreach (scandir($templatePath) as $file) {
             if (empty($this->tsearchModelClass) && $file === '_search.php') {
                 continue;
             }
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-                $files[] = new CodeFile("$tviewPath/$file", $this->render("views/$file"));
+                $files[] = new CodeFile("$tviewPath/$file", $this->render("tviews/$file"));
             }
         }
 
