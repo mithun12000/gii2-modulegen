@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "mithun\\modulegen\\": ""
+            "mithun\\modulegen\\": "src/"
         }
     }
 }
